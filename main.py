@@ -113,17 +113,19 @@ if __name__ == '__main__':
     p_arr = []
     p_arr.append(first_p)
     for i in range(100):
-        random_noise_image_length = 512 * 512
-        random_noise_image = create_watermark(random_noise_image_length, MATH_EXPECTATION, SIGMA)
-        random_noise_image = random_noise_image.reshape(512, 512)
-        dwt_image = pywt.wavedec2(random_noise_image, wavelet='haar', level=2)
-        watermark_test = dwt_image[0]
-        watermark_test = watermark_test.reshape(watermark_test.shape[0] * (watermark_test.shape[1]))
-        watermark_length = watermark_test.shape[0] / 2
-        watermark_test = watermark_test[int(watermark_length):]
-        p = detecting(watermark_vector, watermark_test)
-
-        p_arr.append(p)
+        new_watermark_vector = create_watermark(watermark_length, MATH_EXPECTATION, SIGMA)
+        new_p = detecting(new_watermark_vector, extracted_watermark_vector)
+        # random_noise_image_length = 512 * 512
+        # random_noise_image = create_watermark(random_noise_image_length, MATH_EXPECTATION, SIGMA)
+        # random_noise_image = random_noise_image.reshape(512, 512)
+        # dwt_image = pywt.wavedec2(random_noise_image, wavelet='haar', level=2)
+        # watermark_test = dwt_image[0]
+        # watermark_test = watermark_test.reshape(watermark_test.shape[0] * (watermark_test.shape[1]))
+        # watermark_length = watermark_test.shape[0] / 2
+        # watermark_test = watermark_test[int(watermark_length):]
+        # p = detecting(watermark_vector, watermark_test)
+        #
+        p_arr.append(new_p)
     print(p_arr)
     distance = np.arange(0, 100)
     plt.plot(distance, p_arr)
