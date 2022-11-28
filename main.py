@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from skimage.io import imshow, show, imread, imsave
 from lab2.task import embedding_watermark, detecting_p
-from utils.distortion import smooth_bulk, scalerest_bulk, salt_pepper_bulk, cyclic_shift
+from utils.distortion import smooth_bulk, scalerest_bulk, salt_pepper_bulk, cyclic_shift, scalerest_salt_pepper_bulk
 
 PATH_TO_SOURCE_IMAGE = 'bridge.tif'
 
@@ -56,3 +56,6 @@ if __name__ == '__main__':
     x = np.arange(0.05, 0.55, 0.05)
     plt.plot(x, salt_pepper_rhos)
     plt.show()
+
+    scalerest_salt_pepper_table = scalerest_salt_pepper_bulk(watermark_vector, ll_place, invert_dwt_image, 0.55, 1.45
+                                                             , 0.15, 0.05, 0.5, 0.05)
